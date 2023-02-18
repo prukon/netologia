@@ -37,10 +37,10 @@ print("____")
 
 struct SettingsTelevision  {
     var volume: Double
-    var colorView: Bool
+    var isColorView: Bool
 }
 
-let settingsTelevision = SettingsTelevision.init(volume: 0.4, colorView: true)
+let settingsTelevision = SettingsTelevision.init(volume: 0.4, isColorView: true)
 
 class NewTelevision: Television {
     
@@ -51,7 +51,7 @@ class NewTelevision: Television {
     
     private var currentVolume: Double = 0
     var currentVideoFormat: VideoFormat
-    var colorView = settingsTelevision.colorView
+    var isColorView = settingsTelevision.isColorView
     var maxVolume: Double = 1
     var volume: Double = settingsTelevision.volume {
         willSet {
@@ -64,15 +64,15 @@ class NewTelevision: Television {
             }
         }
     }
-    init( colorView: Bool, currentVideoFormat: VideoFormat) {
-        self.colorView = colorView
+    init( isColorView: Bool, currentVideoFormat: VideoFormat) {
+        self.isColorView = isColorView
         self.currentVideoFormat = currentVideoFormat
         super.init(brandModel: ("Заря", "Модель 1"), enable: true, currentChannel: Television.Chanels.firstChannel)
     }
     
     override func showCurrentChannel(){
         var colorViewDesc: String
-        if colorView {
+        if isColorView {
             colorViewDesc = "цветной"
         } else {
             colorViewDesc = "черно-белый"
@@ -92,13 +92,13 @@ class NewTelevision: Television {
 }
 
 //Просмотр TV
-var newTelevision = NewTelevision(colorView: false, currentVideoFormat :.tvChannel)
+var newTelevision = NewTelevision(isColorView: false, currentVideoFormat :.tvChannel)
 newTelevision.volume = 1.3
 newTelevision.showCurrentChannel()
 
 print("__")
 
 //Просмотр видео по видео порту
-var newTelevision2 = NewTelevision(colorView: false, currentVideoFormat :.videoByPort)
+var newTelevision2 = NewTelevision(isColorView: false, currentVideoFormat :.videoByPort)
 newTelevision2.volume = 0.5
 newTelevision2.showCurrentChannel()
