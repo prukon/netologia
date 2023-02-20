@@ -1,94 +1,111 @@
-// Task - 1
+import UIKit
 
-enum Chanel: String {
-    case firstChannel =  "RBK"
-    case secondChannel = "CNN"
-    case thirdChannel =  "BBC"
-    case fourthChannel = "Comedy"
-    case fifthhChannel = "2x2"
+enum Chanels: String {
+    case firstChannel =  "1 канал"
+    case secondChannel = "2 канал"
+    case thirdChannel =  "3 канал"
+    case fourthChannel = "4 канал"
+    case fifthhChannel = "5 канал"
 }
 
+//task1
 class Television {
-    var brandModel: [String: String]
+    var brandModel: (String, String)
     var isOn: Bool
-    var currentChannel: Chanel
-
-    init(brandModel: [String: String], isOn: Bool, currentChannel: Chanel) {
+    var currentChannel: Chanels
+    
+    init(brandModel: (String, String), isOn: Bool, currentChannel: Chanels) {
         self.brandModel = brandModel
         self.isOn = isOn
         self.currentChannel = currentChannel
     }
-
-    func showCurrentChannel() {
+    
+    func showCurrentChannel(){
         if isOn {
-            print("Телевизор \(brandModel) показывает \(currentChannel.rawValue)")
+            print("Вы смотрите \(currentChannel.rawValue).")
         } else {
-            print("Телевизор выключен")
+            print("Телевизор выключен.")
         }
     }
 }
-var television = Television(brandModel: ["LG": "A500"], isOn: true, currentChannel: Chanel.firstChannel)
+var television = Television(brandModel: ("Заря", "Модель 1"), isOn: true, currentChannel: Chanels.secondChannel)
+
+//Проверка ТВ
 television.showCurrentChannel()
-var television2 = Television(brandModel: ["LG": "A500"], isOn: false, currentChannel: Chanel.secondChannel)
-television2.showCurrentChannel()
+
+//Смена канала. Проверка ТВ
+television.currentChannel = .firstChannel
+television.showCurrentChannel()
+
+//Выключение ТВ. Проверка ТВ.
+television.isOn = false
+television.showCurrentChannel()
 
 
-
-
-// Task - 2
-
-struct Settings {
-    var colorMode: Bool
+//task2
+print("____")
+struct SettingsTV  {
     var volume: Double
-    
+    var isColorView: Bool
 }
 
-class SecondTelevision: Television {
-    
-    var curVolume : Double = 0
-    var settings: Settings {
-        
+enum VideoFormat: String {
+    case tvChannel   = "режим просмотра каналов"
+    case videoByPort = "режим видео по входящему видео порту"
+}
+class NewTelevision: Television {
+    private var currentVolume: Double = 0
+    var currentVideoFormat: VideoFormat
+    var maxVolume: Double = 1
+    var settings: SettingsTV {
         willSet {
-            if newValue.volume > 1.0 {
-                curVolume = 1.0
-            } else if newValue.volume < 0.0 {
-                curVolume = 0.0
+            if newValue.volume > maxVolume {
+                self.currentVolume = 1
+            } else if newValue.volume < 0 {
+                self.currentVolume = 0
             } else {
-                curVolume = newValue.volume
+                currentVolume = newValue.volume
             }
         }
     }
-    
-    init(brandModel: [String : String], isOn: Bool, currentChannel: Chanel, settings: Settings) {
+
+    init(currentVideoFormat: VideoFormat, settings: SettingsTV) {
+        self.currentVideoFormat = currentVideoFormat
         self.settings = settings
-        super.init(brandModel: brandModel, isOn: isOn, currentChannel: currentChannel)
+        super.init(brandModel: ("Заря", "Модель 1"), isOn: true, currentChannel: Chanels.firstChannel)
     }
     
-    override func showCurrentChannel() {
-        if isOn {
-            print("Телевизор\(brandModel) показывает \(currentChannel.rawValue)")
-            print("Громкость телевизора \(curVolume)")
-            if settings.colorMode {
-                print("Телевизор \(brandModel) показывает цветным")
-            } else {
-                print("Телевизор \(brandModel) показывает черно-белым")
-            }
+    override func showCurrentChannel(){
+        var colorViewDesc: String
+        if settings.isColorView {
+            colorViewDesc = "цветной"
         } else {
-            print("Телевизор выключен")
+            colorViewDesc = "черно-белый"
+        }
+        
+        if currentVideoFormat == .tvChannel {
+            print("Вы смотрите \(currentVideoFormat.rawValue).")
+            print("Активный канал: \(currentChannel.rawValue).")
+            print("Режим дисплея: \(colorViewDesc).")
+            print("Громкость: \(currentVolume). ")
+        } else if currentVideoFormat == .videoByPort{
+            print("Вы смотрите \(VideoFormat.videoByPort.rawValue).")
+            print("Режим дисплея: \(colorViewDesc).")
+            print("Громкость: \(currentVolume). ")
         }
     }
 }
-var secondTelevision = SecondTelevision(brandModel: ["Samsung" : "U5400"], isOn: true, currentChannel: Chanel.fourthChannel, settings: Settings(colorMode: true, volume: 1.3))
 
-print("----")
+//Просмотр ТВ
+var newTelevision = NewTelevision(currentVideoFormat: .tvChannel, settings: SettingsTV.init(volume: 0.4, isColorView: true))
+newTelevision.settings.volume = 1.3
 
-secondTelevision.showCurrentChannel()
-secondTelevision.settings.volume = 2
-secondTelevision.showCurrentChannel()
-secondTelevision.settings.volume = -2
-secondTelevision.showCurrentChannel()
-secondTelevision.settings.volume = 1.2
-secondTelevision.showCurrentChannel()
+newTelevision.showCurrentChannel()
+newTelevision.currentVideoFormat
 
+print("__")
 
-private var curValue
+//Просмотр видео по видео порту
+var newTelevision2 = NewTelevision(currentVideoFormat :.videoByPort, settings: SettingsTV.init(volume: 0.4, isColorView: true))
+newTelevision2.settings.volume = 0.5
+newTelevision2.showCurrentChannel()
