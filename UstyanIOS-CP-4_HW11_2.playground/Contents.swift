@@ -56,26 +56,15 @@ enum VideoFormat: String {
 class NewTelevision: Television {
     private var currentVolume: Double = 0
     var currentVideoFormat: VideoFormat
-    var maxVolume: Double = 1
-    var settings: SettingsTV {
-        willSet {
-            if newValue.volume > maxVolume {
-                self.currentVolume = 1
-            } else if newValue.volume < 0 {
-                self.currentVolume = 0
-            } else {
-                currentVolume = newValue.volume
-            }
-        }
-    }
-
+    var diapazonVoume = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    var settings: SettingsTV
     init(currentVideoFormat: VideoFormat, settings: SettingsTV) {
         self.currentVideoFormat = currentVideoFormat
         self.settings = settings
         super.init(brandModel: ("Заря", "Модель 1"), isOn: true, currentChannel: Chanels.firstChannel)
     }
     
-    override func showCurrentChannel(){
+    override func showCurrentChannel() {
         var colorViewDesc: String
         if settings.isColorView {
             colorViewDesc = "цветной"
@@ -94,6 +83,16 @@ class NewTelevision: Television {
             print("Громкость: \(currentVolume). ")
         }
     }
+    func changeVolume (newVolume: Double) {
+        if diapazonVoume.contains(newVolume) {
+            currentVolume = newVolume
+        } else if(newVolume > 1.0) {
+            currentVolume = 1
+            }
+        else if (newVolume < 0) {
+            currentVolume = 0
+        }
+    }
 }
 
 //Просмотр ТВ
@@ -107,11 +106,11 @@ print("__")
 
 //Просмотр видео по видео порту
 var newTelevision2 = NewTelevision(currentVideoFormat :.videoByPort, settings: SettingsTV.init(volume: 0.4, isColorView: true))
-newTelevision2.settings.volume = 2
+newTelevision2.changeVolume(newVolume: 2)
 newTelevision2.showCurrentChannel()
 
-newTelevision2.settings.volume = -2
+newTelevision2.changeVolume(newVolume: -2)
 newTelevision2.showCurrentChannel()
 
-newTelevision2.settings.volume = 7
+newTelevision2.changeVolume(newVolume: 0.4)
 newTelevision2.showCurrentChannel()
