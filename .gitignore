@@ -1,4 +1,5 @@
 .DS_Store
 *.zip
 zip
+/zip
 git
