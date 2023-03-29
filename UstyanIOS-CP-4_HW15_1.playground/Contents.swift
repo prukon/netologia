@@ -38,6 +38,11 @@ protocol DealershipProtocol {
     func orderCar ()
 }
 
+protocol SpecialOffer {
+    func addEmergencyPack()
+    func makeSpecialOffer()
+}
+
 struct Cars: CarProtocol {
     var model: String
     var color: Color
@@ -154,11 +159,6 @@ for i in DealershipArray {
     case "Салон Volvo"  : print("\(i.name). Слоган: Опережает время.")
     default: break
     }
-}
-
-protocol SpecialOffer {
-    func addEmergencyPack()
-    func makeSpecialOffer()
 }
 
 extension Dealership: SpecialOffer {
