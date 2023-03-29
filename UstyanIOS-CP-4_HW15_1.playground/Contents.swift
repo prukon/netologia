@@ -103,43 +103,6 @@ class Dealership : DealershipProtocol {
         }
         print("Автомобиль \(car.model) перемещен со склада в салон.")
     }
-//    func sellCar (car: inout Cars) {
-//        var missedAccessories = [String]()
-//        var carAccessoriesArray = [String]()
-//        presaleService(car: &car)
-//        let  allAccessories = Accessories.allCases.map { $0.rawValue }
-//        let  carAccessories = car.accessories[0].rawValue
-//        for i in car.accessories {
-//            carAccessoriesArray.append(i.rawValue)
-//        }
-//        for i in allAccessories {
-//            if !carAccessoriesArray.contains(i) {
-//                missedAccessories.append(i)
-//            }
-//        }
-//        print("В автомобиле \(car.model) отсутствует доп. оборудование: \(missedAccessories.joined(separator:", ")). Вы можете приобрести его в салоне.")
-//        print("Автомобиль \(car.model) продан.")
-//
-//    }
-    
-    enum Plants: CaseIterable {
-        case plumeria
-        case adenuium
-        case lotus
-        case palm
-    }
-
-    class PlantMaker {
-        var plants: [Plants] = []
-        func addPlants() {
-            plants = Plants.allCases
-        }
-        
-        func removePlants(plant: Plants) {
-            
-        }
-    }
-   
     func sellCar (car: inout Cars) {
         var missedAccessories = [String]()
         var carAccessoriesArray = [String]()
@@ -156,9 +119,8 @@ class Dealership : DealershipProtocol {
         }
         print("В автомобиле \(car.model) отсутствует доп. оборудование: \(missedAccessories.joined(separator:", ")). Вы можете приобрести его в салоне.")
         print("Автомобиль \(car.model) продан.")
+        
     }
-    
-    
 }
 
 //Инициализация автомобилей
