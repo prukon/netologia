@@ -178,18 +178,13 @@ extension Dealership: SpecialOffer {
         }
     }
     func makeSpecialOffer(car: CarProtocol) throws {
-        
         for (i,j) in stockCars.enumerated() {
-            
             if j.model == car.model {
-                
                 var oldPrice: Double
                
-                
                     guard (stockCars[i].buildDate.2 < Calendar.current.component(.year, from: Date())) else {
                         throw SpecialOfferError.yearOfReleaseIsNotOld
                         }
-                
                     if !j.specialOffer {
                         oldPrice = stockCars[i].price
                         stockCars[i].price *= 0.85
@@ -227,7 +222,6 @@ extension Dealership: SpecialOffer {
                         showroomCars[i].specialOffer = true
                         print("Стоимость автомобиля \(cars[i].model), \(showroomCars[i].buildDate.2) уменьшена на 15% и теперь составляет \(Int(showroomCars[i].price)) руб.")
                     }
-                
             }
         }
     }
@@ -252,12 +246,6 @@ checkAllcars(dealership: bmwDealership, allCars: bmwDealership.cars)
 checkAllcars(dealership: hondaDealership, allCars: hondaDealership.cars)
 checkAllcars(dealership: lexusDealership, allCars: lexusDealership.cars)
 checkAllcars(dealership: volvoDealership, allCars: volvoDealership.cars)
-
-
-
-
-
-
 
 print("--presaleService")
 lexusDealership.presaleService(car: &lexusRX440)
