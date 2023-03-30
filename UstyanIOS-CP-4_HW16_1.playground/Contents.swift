@@ -6,6 +6,10 @@ enum Color {
     case black
 }
 
+enum SpecialOfferError: Error {
+    case yearOfReleaseIsNotOld
+}
+
 enum Accessories: String, CaseIterable {
     case tinting = "Tinting"
     case alarmSystem = "AlarmSystem"
@@ -40,7 +44,7 @@ protocol DealershipProtocol {
 
 protocol SpecialOffer {
     func addEmergencyPack()
-    func makeSpecialOffer()
+    func makeSpecialOffer(car: CarProtocol) throws
 }
 struct Cars: CarProtocol {
     var model: String
@@ -173,44 +177,57 @@ extension Dealership: SpecialOffer {
             }
         }
     }
-    func makeSpecialOffer() {
+    func makeSpecialOffer(car: CarProtocol) throws {
+        
         for (i,j) in stockCars.enumerated() {
-            var oldPrice: Double
-            if  stockCars[i].buildDate.2 < Calendar.current.component(.year, from: Date()) {
-                if !j.specialOffer {
-                    oldPrice = stockCars[i].price
-                    stockCars[i].price *= 0.85
-                    if !stockCars[i].accessories.contains(.fireExtinguisher) {
-                        stockCars[i].accessories.append(.fireExtinguisher)
-                        print("Автомобилю \(stockCars[i].model) добавлен доп. аксессуар - огнетушитель.")
+            
+            if j.model == car.model {
+                
+                var oldPrice: Double
+               
+                
+                    guard (stockCars[i].buildDate.2 < Calendar.current.component(.year, from: Date())) else {
+                        throw SpecialOfferError.yearOfReleaseIsNotOld
+                        }
+                
+                    if !j.specialOffer {
+                        oldPrice = stockCars[i].price
+                        stockCars[i].price *= 0.85
+                        if !stockCars[i].accessories.contains(.fireExtinguisher) {
+                            stockCars[i].accessories.append(.fireExtinguisher)
+                            print("Автомобилю \(stockCars[i].model), \(stockCars[i].buildDate.2) добавлен доп. аксессуар - огнетушитель.")
+                        }
+                        if !stockCars[i].accessories.contains(.firstAidKit) {
+                            stockCars[i].accessories.append(.firstAidKit)
+                            print("Автомобилю \(cars[i].model), \(stockCars[i].buildDate.2) добавлен доп. аксессуар - аптечка.")
+                        }
+                        stockCars[i].specialOffer = true
+                        print("Стоимость автомобиля \(cars[i].model), \(stockCars[i].buildDate.2) уменьшена на 15% и теперь составляет \(Int(stockCars[i].price)) руб. вместо \(Int(oldPrice)) руб. ")
+                        showroomCars.append(stockCars[i])
+                        print("Автомобиль \(  stockCars[i].model), \(stockCars[i].buildDate.2) перемещен со склада в салон.")
+                        stockCars.remove(at: i)
                     }
-                    if !stockCars[i].accessories.contains(.firstAidKit) {
-                        stockCars[i].accessories.append(.firstAidKit)
-                        print("Автомобилю \(cars[i].model) добавлен доп. аксессуар - аптечка.")
-                    }
-                    stockCars[i].specialOffer = true
-                    print("Стоимость автомобиля \(cars[i].model) уменьшена на 15% и теперь составляет \(Int(stockCars[i].price)) руб. вместо \(Int(oldPrice)) руб. ")
-                    showroomCars.append(stockCars[i])
-                    stockCars.remove(at: i)
-                    print("Автомобиль \(  showroomCars[i].model) перемещен со склада в салон.")
-                }
             }
         }
         for (i,j) in showroomCars.enumerated() {
-            if  showroomCars[i].buildDate.2 < Calendar.current.component(.year, from: Date()) {
-                if !j.specialOffer {
-                    showroomCars[i].price *= 0.85
-                    if !showroomCars[i].accessories.contains(.fireExtinguisher) {
-                        showroomCars[i].accessories.append(.fireExtinguisher)
-                        print("Автомобилю \(stockCars[i].model) добавлен доп. аксессуар - огнетушитель.")
+            if j.model == car.model {
+                    guard (showroomCars[i].buildDate.2 < Calendar.current.component(.year, from: Date())) else {
+                        throw SpecialOfferError.yearOfReleaseIsNotOld
+                        }
+                    if !j.specialOffer {
+                        showroomCars[i].price *= 0.85
+                        if !showroomCars[i].accessories.contains(.fireExtinguisher) {
+                            showroomCars[i].accessories.append(.fireExtinguisher)
+                            print("Автомобилю \(showroomCars[i].model), \(showroomCars[i].buildDate.2) добавлен доп. аксессуар - огнетушитель.")
+                        }
+                        if !showroomCars[i].accessories.contains(.firstAidKit) {
+                            showroomCars[i].accessories.append(.firstAidKit)
+                            print("Автомобилю \(showroomCars[i].model), \(showroomCars[i].buildDate.2) добавлен доп. аксессуар - аптечка.")
+                        }
+                        showroomCars[i].specialOffer = true
+                        print("Стоимость автомобиля \(cars[i].model), \(showroomCars[i].buildDate.2) уменьшена на 15% и теперь составляет \(Int(showroomCars[i].price)) руб.")
                     }
-                    if !showroomCars[i].accessories.contains(.firstAidKit) {
-                        showroomCars[i].accessories.append(.firstAidKit)
-                        print("Автомобилю \(showroomCars[i].model) добавлен доп. аксессуар - аптечка.")
-                    }
-                    showroomCars[i].specialOffer = true
-                    print("Стоимость автомобиля \(cars[i].model) уменьшена на 15% и теперь составляет \(Int(showroomCars[i].price)) руб.")
-                }
+                
             }
         }
     }
@@ -219,7 +236,29 @@ extension Dealership: SpecialOffer {
 print("--addEmergencyPack")
 bmwDealership.addEmergencyPack()
 print("--makeSpecialOffer")
-audiDealership.makeSpecialOffer()
+func checkAllcars (dealership: Dealership, allCars: [CarProtocol]) {
+    for i in allCars {
+        if !i.specialOffer {
+            do {
+                try dealership.makeSpecialOffer(car: i)
+            } catch {
+                print("Автомобиль \(i.model),\(i.buildDate.2), не подходит под условие спецпредложения.")
+            }
+        }
+    }
+}
+checkAllcars(dealership: audiDealership, allCars: audiDealership.cars)
+checkAllcars(dealership: bmwDealership, allCars: bmwDealership.cars)
+checkAllcars(dealership: hondaDealership, allCars: hondaDealership.cars)
+checkAllcars(dealership: lexusDealership, allCars: lexusDealership.cars)
+checkAllcars(dealership: volvoDealership, allCars: volvoDealership.cars)
+
+
+
+
+
+
+
 print("--presaleService")
 lexusDealership.presaleService(car: &lexusRX440)
 print("--addToShowroom")
