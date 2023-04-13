@@ -25,12 +25,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let profileNovigationViewController = UINavigationController(rootViewController: profileViewcontroller)
         profileNovigationViewController.tabBarItem.title = "Profile"
         profileNovigationViewController.tabBarItem.image = UIImage(named: "square.and.arrow.up.circle.png")
+        profileNovigationViewController.tabBarItem.imageInsets.bottom = 5
+        profileNovigationViewController.tabBarItem.imageInsets.top = 5
+
         
         //Создаем объект feedViewController
         let feedViewController = FeedViewController()
         let feedNovigationViewController = UINavigationController(rootViewController: feedViewController)
         feedNovigationViewController.tabBarItem.title = "Feed"
         feedNovigationViewController.tabBarItem.image = UIImage(named: "square.and.arrow.up.circle.png")
+        feedNovigationViewController.tabBarItem.imageInsets.bottom = 5
+        feedNovigationViewController.tabBarItem.imageInsets.top = 5
         
         //Создаем объект tabViewController
         let tabViewController = UITabBarController()
