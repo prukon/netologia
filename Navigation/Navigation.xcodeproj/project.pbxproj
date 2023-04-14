@@ -18,6 +18,7 @@
 		1A8FB7DE29E06D09001CCAFD /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FB7DD29E06D09001CCAFD /* InfoViewController.swift */; };
 		1A8FB7E029E1585C001CCAFD /* Extension+UIVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FB7DF29E1585C001CCAFD /* Extension+UIVC.swift */; };
 		1A8FB7E229E43601001CCAFD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FB7E129E43601001CCAFD /* Post.swift */; };
+		1A8FB80629E827D9001CCAFD /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FB80529E827D8001CCAFD /* ProfileHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		1A8FB7DD29E06D09001CCAFD /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		1A8FB7DF29E1585C001CCAFD /* Extension+UIVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIVC.swift"; sourceTree = "<group>"; };
 		1A8FB7E129E43601001CCAFD /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		1A8FB80529E827D8001CCAFD /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,9 +68,9 @@
 		1A141BA029DFFF0E00035BC3 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				1A8FB80429E82795001CCAFD /* Prifile */,
 				1A141BA129DFFF0E00035BC3 /* AppDelegate.swift */,
 				1A141BA329DFFF0E00035BC3 /* SceneDelegate.swift */,
-				1A8FB7D729E05BC9001CCAFD /* ProfileViewController.swift */,
 				1A8FB7D529E05BB4001CCAFD /* FeedViewController.swift */,
 				1A8FB7D929E063E4001CCAFD /* PostViewController.swift */,
 				1A8FB7DD29E06D09001CCAFD /* InfoViewController.swift */,
@@ -80,6 +82,15 @@
 				1A141BAF29DFFF1000035BC3 /* Info.plist */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		1A8FB80429E82795001CCAFD /* Prifile */ = {
+			isa = PBXGroup;
+			children = (
+				1A8FB80529E827D8001CCAFD /* ProfileHeaderView.swift */,
+				1A8FB7D729E05BC9001CCAFD /* ProfileViewController.swift */,
+			);
+			path = Prifile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +170,7 @@
 				1A8FB7D829E05BC9001CCAFD /* ProfileViewController.swift in Sources */,
 				1A8FB7D629E05BB4001CCAFD /* FeedViewController.swift in Sources */,
 				1A8FB7E229E43601001CCAFD /* Post.swift in Sources */,
+				1A8FB80629E827D9001CCAFD /* ProfileHeaderView.swift in Sources */,
 				1A8FB7E029E1585C001CCAFD /* Extension+UIVC.swift in Sources */,
 				1A141BA429DFFF0E00035BC3 /* SceneDelegate.swift in Sources */,
 			);
