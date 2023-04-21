@@ -1,9 +1,7 @@
 {
   "images" : [
     {
-      "compression-type" : "automatic",
       "display-gamut" : "sRGB",
-      "filename" : "square.and.arrow.up@2x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -13,7 +11,9 @@
       "scale" : "1x"
     },
     {
+      "compression-type" : "automatic",
       "display-gamut" : "sRGB",
+      "filename" : "square.and.arrow.up@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

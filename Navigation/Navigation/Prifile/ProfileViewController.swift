@@ -10,41 +10,10 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     //MARK: - Properties
-
-    let postName: Post = .init(title: "Пост №1")
-
-    private let postButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Show Post", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 10
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(showPost), for: .touchUpInside)
-        return button
-    }()
-    
-    private let postButton2: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Show Post2", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 10
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(showPost), for: .touchUpInside)
-        return button
-    }()
-    
-    private let stackViewButtons: UIStackView = {
-       let UIStackView = UIStackView()
-        UIStackView.axis = .vertical
-        UIStackView.spacing = 10
-        
-        return UIStackView
-    }()
     
     private let profileHeaderView = {
         let  view =  ProfileHeaderView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -53,40 +22,32 @@ class ProfileViewController: UIViewController {
         button.setTitle("Open post", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .systemGray5
         title = "Profile"
         
-        translatesAutoresizingMaskIntoConstraints()
         addSubviews()
         setupContraints()
     }
     
     //MARK: - Functions
-
-    private func translatesAutoresizingMaskIntoConstraints () {
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-        openPostButton.translatesAutoresizingMaskIntoConstraints = false
-        stackViewButtons.translatesAutoresizingMaskIntoConstraints = false
-    }
     
     private func addSubviews() {
         view.addSubview(profileHeaderView)
         view.addSubview(openPostButton)
-        stackViewButtons.addArrangedSubview(postButton)
-        stackViewButtons.addArrangedSubview(postButton2)
-        view.addSubview(stackViewButtons)
-
     }
-        
+    
+    //MARK: - Constraints
+    
     private func setupContraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-           
+            
             //profileHeaderView
             profileHeaderView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor),
@@ -123,25 +84,6 @@ class ProfileViewController: UIViewController {
             openPostButton.bottomAnchor.constraint(
                 equalTo: safeAreaGuide.bottomAnchor,
                 constant: 0),
-            
-            stackViewButtons.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor),
-            
-            stackViewButtons.centerYAnchor.constraint(
-                equalTo: view.centerYAnchor),
-
         ])
     }
-    
-    //MARK: - Action
-    
-    @objc func showPost () {
-        let postViewController = PostViewController()
-        postViewController.postName = postName.title
-        //немодальное переход
-        navigationController?.pushViewController(postViewController, animated: true)
-    }
 }
-
-
-

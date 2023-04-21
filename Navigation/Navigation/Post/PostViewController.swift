@@ -8,8 +8,10 @@
 import UIKit
 
 class PostViewController: UIViewController {
+   
+    //MARK: - Properties
+
     var postName: String?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,15 +19,23 @@ class PostViewController: UIViewController {
         setupView()
     }
     
+    //MARK: - Functions
+
     private func setupView() {
         createCustomNovigationbar()
+     
         let infoRightButton = createCustomButton(
             imageName: "info",
             selector: #selector(infoRightButtonTapped))
-        let custoTitleView = createCustomTitleView(contactName: "Лента новостей", contactDescription: "\(postName ?? "Новый пост")", contactImage: "square.and.arrow.up.circle.png")
+        
+        let customTitleView = createCustomTitleView(contactName: "Лента новостей", contactDescription: "\(postName ?? "Новый пост")", contactImage: "newspaper 1")
+        
         navigationItem.rightBarButtonItems = [infoRightButton]
-        navigationItem.titleView = custoTitleView
+        navigationItem.titleView = customTitleView
     }
+    
+    //MARK: - Action
+
     @objc private func infoRightButtonTapped() {
         let infoViewController = InfoViewController()
         //Модальный переход

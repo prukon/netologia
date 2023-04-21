@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "mercedesBenzC200.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "square.and.arrow.up.circle@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

@@ -9,19 +9,18 @@ import UIKit
 
 extension UIViewController {
     func createCustomNovigationbar() {
-        navigationController?.navigationBar.barTintColor = .blue
+        navigationController?.navigationBar.barTintColor = .systemBlue
     }
     
     func createCustomTitleView(contactName: String, contactDescription: String, contactImage: String) ->  UIView {
         
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 280, height: 41)
-        
+
         let imageContact = UIImageView()
         imageContact.image = UIImage(named: contactImage)
-        //Скругление краев imageContact
         imageContact.layer.cornerRadius = imageContact.frame.height / 2
-        imageContact.frame = CGRect(x: 5, y: 0, width: 40, height: 40)
+        imageContact.frame = CGRect(x: 8, y: 8, width: 24, height: 24)
         view.addSubview(imageContact)
         
         
@@ -37,8 +36,26 @@ extension UIViewController {
         descriptionLabel.font = UIFont.systemFont(ofSize: 20)
         descriptionLabel.textColor = .gray
         view.addSubview(descriptionLabel)
-        
+
         return view
+    }
+    
+    func createButton(nameButton: String, setTitle: String, addTarget:  Selector) -> UIButton {
+        let nameButton: UIButton = {
+            let button = UIButton(type: .system)
+            button.setTitle(setTitle, for: .normal)
+            button.setTitleColor(.white, for: .normal)
+            button.backgroundColor = .systemBlue
+            button.layer.cornerRadius = 15
+            button.layer.shadowOffset = CGSize(width: 4, height: 4)
+            button.layer.shadowOpacity = 0.2
+            button.layer.shadowRadius = 10
+            button.layer.shadowColor = UIColor.black.cgColor
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.addTarget(self, action: addTarget, for: .touchUpInside)
+            return button
+        }()
+        return nameButton        
     }
     
     func createCustomButton(imageName: String, selector: Selector) -> UIBarButtonItem {
@@ -51,33 +68,10 @@ extension UIViewController {
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
         button.addTarget(self, action: selector, for: .touchUpInside)
-        
+        button.imageView?.tintColor = .systemRed
         let menuBarItem = UIBarButtonItem(customView: button)
         return menuBarItem
     }
-    
-    func setConstraints(button: UIButton) {
-        NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.widthAnchor.constraint(equalToConstant: 150)
-        ])
-    }
-    func setConstraintsReturn(button: UIButton) {
-        NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.widthAnchor.constraint(equalToConstant: 150)
-        ])
-    }
-    
-    func setupViews(button: UIButton) {
-        view.addSubview(button)
-    }
-  
-    
     
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -93,4 +87,22 @@ extension UIViewController {
     }
 }
 
-
+extension UIView {
+    func createButton(nameButton: String, setTitle: String, addTarget:  Selector) -> UIButton {
+        let nameButton: UIButton = {
+            let button = UIButton(type: .system)
+            button.setTitle(setTitle, for: .normal)
+            button.setTitleColor(.white, for: .normal)
+            button.backgroundColor = .systemBlue
+            button.layer.cornerRadius = 15
+            button.layer.shadowOffset = CGSize(width: 4, height: 4)
+            button.layer.shadowOpacity = 0.2
+            button.layer.shadowRadius = 10
+            button.layer.shadowColor = UIColor.black.cgColor
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.addTarget(self, action: addTarget, for: .touchUpInside)
+            return button
+        }()
+        return nameButton
+    }
+}

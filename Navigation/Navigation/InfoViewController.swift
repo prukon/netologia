@@ -9,43 +9,56 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
-    private let alertButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Show Alert", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .gray
-        return button
-    }()
-    
-    
-    private let returnButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Return", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .gray
-        return button
-    }()
-    
+    //MARK: - Properties
+        
+    var alertButton: UIButton!
+    var returnButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .darkGray
-        setupViews(button: alertButton)
-        setupViews(button: returnButton)
-        
-        alertButton.addTarget(self, action: #selector(runAlert), for: .touchUpInside)
-        returnButton.addTarget(self, action: #selector(returnScreen), for: .touchUpInside)
-        setConstraints(button: alertButton)
-        setConstraintsReturn(button: returnButton)
-        
+        addButtons()
+        setupViews()
+        setupContraints()
     }
+    
+    //MARK: - Functions
+
+    private func addButtons() {
+        alertButton = createButton(nameButton: "alertButton", setTitle: "Show Alert", addTarget: #selector(runAlert))
+        returnButton = createButton(nameButton: "returnButton", setTitle: "Return", addTarget: #selector(returnScreen))
+    }
+    
+    private func setupViews() {
+        view.addSubview(alertButton)
+        view.addSubview(returnButton)
+    }
+    
+    //MARK: - Constraints
+    
+    private func setupContraints() {
+        NSLayoutConstraint.activate([
+            
+//            alertButton
+            alertButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            alertButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            alertButton.heightAnchor.constraint(equalToConstant: 50),
+            alertButton.widthAnchor.constraint(equalToConstant: 150),
+            
+//            returnButton
+            returnButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            returnButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100),
+            returnButton.heightAnchor.constraint(equalToConstant: 50),
+            returnButton.widthAnchor.constraint(equalToConstant: 150)
+        ])
+    }
+    
+    //MARK: - Action
     
     @objc func runAlert() {
         showAlert(title: "Заголовок уведомления", message: "Текст уведомления.")
     }
-    
+
     @objc func returnScreen() {
         dismiss(animated: true)
     }
