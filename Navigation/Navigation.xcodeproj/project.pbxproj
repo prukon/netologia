@@ -19,6 +19,7 @@
 		1A8FB7E029E1585C001CCAFD /* Extension+UIVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FB7DF29E1585C001CCAFD /* Extension+UIVC.swift */; };
 		1A8FB7E229E43601001CCAFD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FB7E129E43601001CCAFD /* Post.swift */; };
 		1A8FB80629E827D9001CCAFD /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FB80529E827D8001CCAFD /* ProfileHeaderView.swift */; };
+		1AEF863229F32991006A7CB8 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF863129F32991006A7CB8 /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		1A8FB7DF29E1585C001CCAFD /* Extension+UIVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIVC.swift"; sourceTree = "<group>"; };
 		1A8FB7E129E43601001CCAFD /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1A8FB80529E827D8001CCAFD /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		1AEF863129F32991006A7CB8 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,9 +70,9 @@
 		1A141BA029DFFF0E00035BC3 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				1AEF863429F34C74006A7CB8 /* Profile */,
 				1A141BA129DFFF0E00035BC3 /* AppDelegate.swift */,
 				1A141BA329DFFF0E00035BC3 /* SceneDelegate.swift */,
-				1A8FB80429E82795001CCAFD /* Prifile */,
 				1A4B072029EEF6F10074699A /* Post */,
 				1A8FB7DD29E06D09001CCAFD /* InfoViewController.swift */,
 				1A8FB7D529E05BB4001CCAFD /* FeedViewController.swift */,
@@ -92,13 +94,14 @@
 			path = Post;
 			sourceTree = "<group>";
 		};
-		1A8FB80429E82795001CCAFD /* Prifile */ = {
+		1AEF863429F34C74006A7CB8 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1AEF863129F32991006A7CB8 /* LogInViewController.swift */,
 				1A8FB80529E827D8001CCAFD /* ProfileHeaderView.swift */,
 				1A8FB7D729E05BC9001CCAFD /* ProfileViewController.swift */,
 			);
-			path = Prifile;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +176,7 @@
 			files = (
 				1A8FB7DA29E063E4001CCAFD /* PostViewController.swift in Sources */,
 				1A141BA629DFFF0E00035BC3 /* ViewController.swift in Sources */,
+				1AEF863229F32991006A7CB8 /* LogInViewController.swift in Sources */,
 				1A141BA229DFFF0E00035BC3 /* AppDelegate.swift in Sources */,
 				1A8FB7DE29E06D09001CCAFD /* InfoViewController.swift in Sources */,
 				1A8FB7D829E05BC9001CCAFD /* ProfileViewController.swift in Sources */,

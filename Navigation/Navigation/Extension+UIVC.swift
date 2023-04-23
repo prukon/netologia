@@ -10,6 +10,7 @@ import UIKit
 extension UIViewController {
     func createCustomNovigationbar() {
         navigationController?.navigationBar.barTintColor = .systemBlue
+        navigationController?.navigationBar.isHidden = true
     }
     
     func createCustomTitleView(contactName: String, contactDescription: String, contactImage: String) ->  UIView {

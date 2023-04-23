@@ -11,6 +11,9 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Properties
     
+    private let colorSet = UIColor(red: 0x48 / 255.0, green: 0x85 / 255.0, blue: 0xCC / 255.0, alpha: 1.0)
+
+    
     private let profileHeaderView = {
         let  view =  ProfileHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false

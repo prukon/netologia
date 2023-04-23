@@ -89,6 +89,7 @@ class ProfileHeaderView: UIView {
     //MARK: - Constraints
     
     private func setupContraints() {
+    
         NSLayoutConstraint.activate([
             
             //            avatarImageView
