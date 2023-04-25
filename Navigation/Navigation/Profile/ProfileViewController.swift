@@ -2,7 +2,7 @@
 //  ProfileViewController.swift
 //  Navigation
 //
-//  Created by Evgeniy Ustyan on 07.04.2023.
+//  Created by Evgeniy Ustyan on 24.04.2023.
 //
 
 import UIKit
@@ -10,83 +10,101 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     //MARK: - Properties
-    
-    private let colorSet = UIColor(red: 0x48 / 255.0, green: 0x85 / 255.0, blue: 0xCC / 255.0, alpha: 1.0)
 
+    private let postFeed = Post.maketPost()
     
-    private let profileHeaderView = {
-        let  view =  ProfileHeaderView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
     }()
     
-    private let openPostButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Open post", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
+    //MARK: - LifeCycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray5
-        title = "Profile"
-        
+        view.backgroundColor = .white
         addSubviews()
         setupContraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+
+    }
     //MARK: - Functions
-    
-    private func addSubviews() {
-        view.addSubview(profileHeaderView)
-        view.addSubview(openPostButton)
+        
+    private func addSubviews(){
+        view.addSubview(tableView)
+    }
+    //MARK: - Constraints
+
+    private func setupContraints() { 
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+}
+
+extension ProfileViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(section)
+
+return        postFeed.count
     }
     
-    //MARK: - Constraints
     
-    private func setupContraints() {
-        let safeAreaGuide = view.safeAreaLayoutGuide
-        NSLayoutConstraint.activate([
-            
-            //profileHeaderView
-            profileHeaderView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor),
-            
-            profileHeaderView.topAnchor.constraint(
-                equalTo: safeAreaGuide.topAnchor),
-            
-            profileHeaderView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 0),
-            
-            profileHeaderView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: 0),
-            
-            profileHeaderView.topAnchor.constraint(
-                equalTo: safeAreaGuide.topAnchor,
-                constant: 0),
-            profileHeaderView.heightAnchor.constraint(
-                equalToConstant: 220),
-            
-            //openPostButton
-            openPostButton.heightAnchor.constraint(
-                equalToConstant: 50),
-            
-            openPostButton.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: 0),
-            
-            openPostButton.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: 0),
-            
-            openPostButton.bottomAnchor.constraint(
-                equalTo: safeAreaGuide.bottomAnchor,
-                constant: 0),
-        ])
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+//        Стандартная ячейка
+//        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+//        var content: UIListContentConfiguration = cell.defaultContentConfiguration()
+//     _visibleCells    __NSArrayM *    0 elements    0x00006000002bff90   content.text =  postFeed[indexPath.row].author
+//        content.secondaryText =  "123"
+//        cell.contentConfiguration = content
+
+//        Кастомная ячейка
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+        cell.setupCell(model: postFeed[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = CustomHeaderView()
+        header.setupHeader(text: "Это хедер секции \(section)")
+        if section == 0 {
+//            let header = CustomHeaderView()
+//            header.setupHeader(text: "Это хедер секции \(section)")
+
+            return header
+        }
+        if section == 1 {
+            let header2 = CustomHeaderView()
+            return header2
+        } else {
+            return nil
+        }
+    }
+    
+    
+
+}
+extension ProfileViewController: UITableViewDelegate {
+}
+
+extension LogInViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
     }
 }

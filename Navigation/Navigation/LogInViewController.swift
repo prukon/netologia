@@ -130,9 +130,6 @@ class LogInViewController: UIViewController {
     
     private func layout() {
         
-        let safeAreaGuide = view.safeAreaLayoutGuide
-        let widthInset = view.frame.width - 32
-        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(logoImageView)
@@ -141,6 +138,9 @@ class LogInViewController: UIViewController {
         stackTextField.addArrangedSubview(seporatorForm)
         stackTextField.addArrangedSubview(passwordTextField)
         contentView.addSubview(loginButton)
+        
+        let safeAreaGuide = view.safeAreaLayoutGuide
+        let widthInset = view.frame.width - 32
         
         NSLayoutConstraint.activate([
             
@@ -208,12 +208,5 @@ class LogInViewController: UIViewController {
     @objc private func keyboardWillHide() {
         scrollView.contentInset.bottom = .zero
         scrollView.verticalScrollIndicatorInsets = .zero
-    }
-}
-
-extension LogInViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
-        return true
     }
 }

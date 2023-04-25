@@ -9,7 +9,7 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    let postName: Post = .init(title: "Пост №1")
+    let postName: PostText = .init(title: "Пост №1")
     var postButton: UIButton!
     var postButton2: UIButton!
 

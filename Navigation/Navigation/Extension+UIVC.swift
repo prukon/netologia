@@ -46,7 +46,8 @@ extension UIViewController {
             let button = UIButton(type: .system)
             button.setTitle(setTitle, for: .normal)
             button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = .systemBlue
+//            button.backgroundColor = .systemBlue
+            button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
             button.layer.cornerRadius = 15
             button.layer.shadowOffset = CGSize(width: 4, height: 4)
             button.layer.shadowOpacity = 0.2
@@ -65,6 +66,7 @@ extension UIViewController {
             UIImage(systemName: imageName)?.withRenderingMode(.alwaysTemplate),
             for: .normal)
         button.tintColor = .systemBlue
+        
         button.imageView?.contentMode = .scaleAspectFit
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
@@ -94,7 +96,9 @@ extension UIView {
             let button = UIButton(type: .system)
             button.setTitle(setTitle, for: .normal)
             button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = .systemBlue
+//            button.backgroundColor = .systemBlue
+            button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
+            button.clipsToBounds = true
             button.layer.cornerRadius = 15
             button.layer.shadowOffset = CGSize(width: 4, height: 4)
             button.layer.shadowOpacity = 0.2
@@ -105,5 +109,9 @@ extension UIView {
             return button
         }()
         return nameButton
+    }
+    
+    static var identifier: String {
+        String(describing: self)
     }
 }
