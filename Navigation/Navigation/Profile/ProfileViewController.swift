@@ -80,17 +80,9 @@ return        postFeed.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = CustomHeaderView()
-        header.setupHeader(text: "Это хедер секции \(section)")
         if section == 0 {
-//            let header = CustomHeaderView()
-//            header.setupHeader(text: "Это хедер секции \(section)")
-
+            let header = ProfileHeaderView()
             return header
-        }
-        if section == 1 {
-            let header2 = CustomHeaderView()
-            return header2
         } else {
             return nil
         }
