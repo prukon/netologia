@@ -9,7 +9,7 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    let postName: PostText = .init(title: "Пост №1")
+    let postName = "Пост 1"
     var postButton: UIButton!
     var postButton2: UIButton!
 
@@ -61,7 +61,7 @@ class FeedViewController: UIViewController {
 
     @objc func showPost () {
         let postViewController = PostViewController()
-        postViewController.postName = postName.title
+        postViewController.postName = postName
         //немодальный переход
         navigationController?.pushViewController(postViewController, animated: true)
     }

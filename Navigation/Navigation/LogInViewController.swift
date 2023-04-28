@@ -111,7 +111,8 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        layout()
+        addSubview()
+        setupConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,10 +127,9 @@ class LogInViewController: UIViewController {
         notificationCenter.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    //MARK: - Constraints
+    //MARK: - Function
     
-    private func layout() {
-        
+    func addSubview() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(logoImageView)
@@ -138,9 +138,14 @@ class LogInViewController: UIViewController {
         stackTextField.addArrangedSubview(seporatorForm)
         stackTextField.addArrangedSubview(passwordTextField)
         contentView.addSubview(loginButton)
+    }
+    
+    //MARK: - Constraints
+    
+    private func setupConstraints() {
         
         let safeAreaGuide = view.safeAreaLayoutGuide
-        let widthInset = view.frame.width - 32
+        let widthInset = view.frame.width - Metric.widthRangeInset
         
         NSLayoutConstraint.activate([
             
@@ -158,32 +163,32 @@ class LogInViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
             //            logoImageView
-            logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
+            logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Metric.logoImageViewTopInset),
             logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            logoImageView.heightAnchor.constraint(equalToConstant: 100),
-            logoImageView.widthAnchor.constraint(equalToConstant: 100),
+            logoImageView.heightAnchor.constraint(equalToConstant: Metric.logoImageViewWidthInset),
+            logoImageView.widthAnchor.constraint(equalToConstant: Metric.logoImageViewWidthInset),
             
             //            loginTextField
-            loginTextField.heightAnchor.constraint(equalToConstant: 50),
+            loginTextField.heightAnchor.constraint(equalToConstant: Metric.textFieldHeightInset),
             
             //            passwordTextField
-            passwordTextField.topAnchor.constraint(equalTo: seporatorForm.bottomAnchor, constant: 0),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 49),
+            passwordTextField.topAnchor.constraint(equalTo: seporatorForm.bottomAnchor),
+            passwordTextField.heightAnchor.constraint(equalToConstant: Metric.textFieldHeightInset - Metric.seporatorFormHeightInset),
             
             //            seporatorForm
-            seporatorForm.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: 0),
-            seporatorForm.heightAnchor.constraint(equalToConstant: 1),
+            seporatorForm.topAnchor.constraint(equalTo: loginTextField.bottomAnchor),
+            seporatorForm.heightAnchor.constraint(equalToConstant: Metric.seporatorFormHeightInset),
             seporatorForm.widthAnchor.constraint(equalToConstant:  widthInset),
             
             //            stackTextField
-            stackTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
+            stackTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: Metric.stackTextTopInset),
             passwordTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             passwordTextField.widthAnchor.constraint(equalToConstant:  widthInset),
             
             //            loginButton
-            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
+            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: Metric.loginButtonTopInset),
             loginButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            loginButton.heightAnchor.constraint(equalToConstant: 50),
+            loginButton.heightAnchor.constraint(equalToConstant: Metric.buttonHeightInset),
             loginButton.widthAnchor.constraint(equalToConstant:  widthInset),
             loginButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
@@ -198,15 +203,25 @@ class LogInViewController: UIViewController {
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize: CGRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             scrollView.contentInset.bottom = keyboardSize.height + loginButton.frame.height + 16
-            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0,
-                                                                    left: 0,
-                                                                    bottom: keyboardSize.height + loginButton.frame.height + 16,
-                                                                    right: 0)
+            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + loginButton.frame.height + 16, right: 0)
         }
     }
     
     @objc private func keyboardWillHide() {
         scrollView.contentInset.bottom = .zero
         scrollView.verticalScrollIndicatorInsets = .zero
+    }
+}
+
+extension LogInViewController {
+    enum Metric {
+        static let widthRangeInset: CGFloat = 32
+        static let logoImageViewTopInset: CGFloat = 120
+        static let logoImageViewWidthInset: CGFloat = 100
+        static let stackTextTopInset: CGFloat = 120
+        static let textFieldHeightInset: CGFloat = 50
+        static let buttonHeightInset: CGFloat = 50
+        static let seporatorFormHeightInset: CGFloat = 1
+        static let loginButtonTopInset: CGFloat = 16
     }
 }

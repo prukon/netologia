@@ -141,3 +141,8 @@ class ProfileHeaderView: UIView {
     }
 }
 
+extension ProfileHeaderView {
+    enum Metric {
+        
+    }
+}

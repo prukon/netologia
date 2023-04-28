@@ -115,3 +115,8 @@ extension UIView {
         String(describing: self)
     }
 }
+
+
+extension UITableViewCell {
+    
+}
