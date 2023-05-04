@@ -19,6 +19,8 @@ class ProfileViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
+        tableView.register(PhotosSlideController.self, forCellReuseIdentifier: PhotosSlideController.identifier)
+        
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -31,17 +33,37 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .white
         addSubviews()
         setupContraints()
+        
+//        let photosSlideController = PhotosSlideController()
+    
+//        photosSlideController.tapHandler = { [weak self] in
+//            self?.navigationController?.pushViewController(PhotosViewController(), animated: true)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+//        tableView.reloadData()
         navigationController?.navigationBar.isHidden = true
+    
     }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        if let nav = parentNavigationController {nav.navigationBar.isHidden = true}
+//    }
     //MARK: - Functions
     
     private func addSubviews(){
         view.addSubview(tableView)
+    }
+    
+    
+    func pushPhotosViewController() {
+        let photosVC = PhotosViewController()
+        photosVC.parentNavigationControler = self.navigationController
+        navigationController?.pushViewController(photosVC, animated: true)
+        
     }
     //MARK: - Constraints
     
@@ -56,23 +78,26 @@ class ProfileViewController: UIViewController {
     }
 }
 
+//MARK: UITableViewDataSource
+
 extension ProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if section == 0   {
             return 1
-        } else {
-          return  postFeed.count
+        }
+        else {
+            return  postFeed.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-              
-        if indexPath.section == 0  {
-            let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
+            if indexPath.section == 0  {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PhotosSlideController.identifier, for: indexPath) as! PhotosSlideController
+                cell.tapHandler = pushPhotosViewController
             return cell
         } else  {
             let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
@@ -89,14 +114,28 @@ extension ProfileViewController: UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //MARK: refactor
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let photosViewController = PhotosViewController()
+//        if indexPath.section == 0 {
+//            navigationController?.pushViewController(photosViewController, animated: true)
+//        }
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            navigationController?.pushViewController(PhotosViewController(), animated: true)
+            return 150
         }
+        return tableView.rowHeight
     }
 }
+
+//MARK: UITableViewDelegate
+
 extension ProfileViewController: UITableViewDelegate {
 }
+
+//MARK: UITextFieldDelegate
 
 extension LogInViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

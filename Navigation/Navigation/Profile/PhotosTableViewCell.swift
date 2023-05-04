@@ -5,6 +5,8 @@
 //  Created by Evgeniy Ustyan on 24.04.2023.
 //
 
+
+//MARK: refactor UITableViewCell
 import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
@@ -127,10 +129,8 @@ class PhotosTableViewCell: UITableViewCell {
             imageView4.leadingAnchor.constraint(equalTo: imageView3.trailingAnchor,constant: Metric.imageLeftInset),
             imageView4.bottomAnchor.constraint(equalTo: contentWhiteView.bottomAnchor, constant: -Metric.imageInset),
             
-            
             //            ImageArrow
             imageArrow.widthAnchor.constraint(equalToConstant: Metric.imageArrowInset),
-//            imageArrow.heightAnchor.constraint(equalToConstant: Metric.imageArrowInset),
             imageArrow.trailingAnchor.constraint(equalTo: contentWhiteView.trailingAnchor, constant: -12),
             imageArrow.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor)
         ])
@@ -142,7 +142,6 @@ class PhotosTableViewCell: UITableViewCell {
         PhotosViewController()
     }()
 }
-
 
 extension PhotosTableViewCell {
     func createImageView(nameImageView: String, nameImage: String) -> UIImageView{
@@ -159,7 +158,6 @@ extension PhotosTableViewCell {
             return imageView
         }()
         return nameImageView
-        
     }
 }
 

@@ -12,6 +12,8 @@ class PhotosViewController: UIViewController {
     //MARK: - Properties
     
     private let postImages = PostImages.maketPost()
+    
+    var parentNavigationControler: UINavigationController? = nil
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -25,7 +27,7 @@ class PhotosViewController: UIViewController {
         collectionView.register(
             PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
         collectionView.delegate = self
-    
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
@@ -60,6 +62,8 @@ class PhotosViewController: UIViewController {
     }
 }
 
+//MARK: UICollectionViewDataSource
+
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         postImages.count
@@ -71,6 +75,8 @@ extension PhotosViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
+//MARK: UICollectionViewDelegateFlowLayout
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     private var inset: CGFloat { return 8}
